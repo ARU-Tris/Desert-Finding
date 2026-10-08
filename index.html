@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#171c20" />
+    <meta
+      name="description"
+      content="A compass. An enormous sea of sand. Wander a Sahara-sized desert at a real walking pace, lit by your local time."
+    />
+    <title>Desert Finding</title>
+    <link rel="icon" href="assets/compass_base.png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main id="stage" aria-label="Desert Finding game">
+      <canvas
+        id="world"
+        width="480"
+        height="270"
+        tabindex="0"
+        aria-label="Desert. Click or tap a direction from the traveler to walk."
+        aria-describedby="instructions"
+      ></canvas>
+      <div class="topline" aria-hidden="true">
+        <span>DESERT FINDING</span><span class="edition">A SMALL JOURNEY</span>
+      </div>
+      <nav id="tools" aria-label="Journey controls" hidden>
+        <button
+          id="notes-button"
+          title="Field notes (H)"
+          aria-label="Field notes"
+          aria-expanded="false"
+        >
+          NOTES
+        </button>
+        <button
+          id="pause-button"
+          title="Pause (Escape)"
+          aria-label="Pause journey"
+        >
+          Ⅱ
+        </button>
+      </nav>
+      <aside id="notes" aria-label="Traveler's field notes" hidden>
+        <div class="note-heading">
+          FIELD NOTES
+          <button id="close-notes" aria-label="Put away field notes">×</button>
+        </div>
+        <p>Choose your own course.<br />Check your bearing.</p>
+        <span
+          >Even steady footsteps can bend.<br />The needle always knows
+          North.<br />It cannot tell you where you are.</span
+        >
+      </aside>
+      <div id="clock" aria-label="Local time"></div>
+      <aside id="compass" aria-label="North-seeking compass">
+        <span class="compass-label">YOUR COMPASS</span>
+        <canvas id="dial" width="128" height="128" aria-hidden="true"></canvas>
+        <output id="bearing" aria-label="Current travel bearing"
+          >BEARING 000°</output
+        >
+        <span id="travel-state">AT REST</span>
+      </aside>
+      <section id="overlay" aria-labelledby="panel-title">
+        <div
+          class="panel"
+          id="panel"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="panel-title"
+          aria-describedby="panel-description"
+        >
+          <span id="panel-eyebrow" class="eyebrow"
+            >A COMPASS. AN ENDLESS SEA.</span
+          >
+          <h1 id="panel-title">DESERT<br />FINDING</h1>
+          <p id="panel-description">
+            No route. No destination.<br />Only sand, and the way you choose.
+          </p>
+          <p id="panel-controls">
+            CLICK A DIRECTION TO WALK.<br />CLICK AGAIN TO TURN.
+          </p>
+          <div id="panel-actions">
+            <button id="primary" disabled>Loading the desert…</button
+            ><button id="secondary" hidden>Reset Journey</button>
+          </div>
+          <span id="panel-footnote"
+            >SPACE · REST &nbsp; H · NOTE &nbsp; ESC · PAUSE</span
+          >
+        </div>
+      </section>
+      <div
+        id="announcement"
+        class="sr-only"
+        role="status"
+        aria-live="polite"
+      ></div>
+      <p id="save-notice" role="status" hidden></p>
+    </main>
+    <p id="instructions" class="sr-only">
+      Begin or Continue Journey, then click or tap a direction from the centered
+      traveler to walk continuously. Click again to turn and correct gradual
+      navigation drift. Space stops or resumes walking, H shows field notes,
+      Escape pauses. The compass red needle always seeks North and its bearing
+      is your actual walking heading. Walk at 5 kilometers per hour across a 9.2
+      million square kilometer desert. There is no assigned destination. Only
+      physically crossing the natural boundary ends the journey. Progress saves
+      on this device and advances only during active play. Sunrise is at 06:00
+      and sunset at 18:00 in your local time.
+    </p>
+    <noscript
+      ><p class="no-script">
+        Desert Finding needs JavaScript. Enable it and reload to begin your
+        journey.
+      </p></noscript
+    >
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>

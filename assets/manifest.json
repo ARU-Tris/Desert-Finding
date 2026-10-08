@@ -1,0 +1,144 @@
+{
+  "license": "CC0-1.0 (original generated pixel assets for Desert Finding)",
+  "palette": {
+    "ink": "#2A2830",
+    "deep": "#45352F",
+    "sienna": "#704933",
+    "bark": "#7E513A",
+    "sand": "#DAB475",
+    "sand_light": "#E8C98E",
+    "sand_hi": "#F2D99E",
+    "sand_dark": "#B78B55",
+    "cloth": "#596B65",
+    "cloth_light": "#789183",
+    "cloth_dark": "#374D4B",
+    "skin": "#B97D5D",
+    "skin_hi": "#E0AF82",
+    "boot": "#543B36",
+    "boot_hi": "#927056",
+    "brass": "#B38248",
+    "brass_hi": "#F3C97D",
+    "brass_dark": "#6A4937",
+    "face": "#EDE0B9",
+    "face_dark": "#D0BC8B",
+    "red": "#CC5748",
+    "red_hi": "#F18468",
+    "steel": "#536B72",
+    "water": "#457C82",
+    "water_hi": "#78B2A3",
+    "water_dark": "#315960",
+    "leaf": "#43665B",
+    "leaf_hi": "#6C8971",
+    "leaf_dark": "#304B49",
+    "night": "#112339",
+    "night2": "#172E41",
+    "light": "#FFE09A"
+  },
+  "coordinateSystem": "+x east/right; +y south/down; world north = screen up",
+  "pixelArt": {
+    "internalResolution": [
+      480,
+      270
+    ],
+    "sampling": "nearest",
+    "pixelSnap": true
+  },
+  "sheets": {
+    "player_day.png": {
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 8,
+      "directions": [
+        "N",
+        "NE",
+        "E",
+        "SE",
+        "S",
+        "SW",
+        "W",
+        "NW"
+      ],
+      "origin": "64x64 frames; frame x direction; 0..5 walking frame"
+    },
+    "player_night.png": {
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 8,
+      "directions": [
+        "N",
+        "NE",
+        "E",
+        "SE",
+        "S",
+        "SW",
+        "W",
+        "NW"
+      ],
+      "origin": "same mapping; lantern mounted on traveler left hand"
+    },
+    "sand_tiles.png": {
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 4,
+      "variants": 16
+    },
+    "sand_details.png": {
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 3,
+      "variants": 12,
+      "transparent": true
+    },
+    "footprints.png": {
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 2,
+      "rows": 1,
+      "variants": 2,
+      "transparent": true
+    }
+  },
+  "static": {
+    "compass_base.png": [
+      128,
+      128
+    ],
+    "compass_needle.png": [
+      128,
+      128
+    ],
+    "compass_glass.png": [
+      128,
+      128
+    ],
+    "oasis.png": [
+      160,
+      160
+    ],
+    "player_shadow.png": [
+      64,
+      64
+    ]
+  },
+  "compass": {
+    "rotate": "needle relative player heading: -headingRadians; heading 0 = north, 90 = east",
+    "pivot": [
+      64,
+      64
+    ],
+    "redEnd": "north",
+    "handheldDialOffsetNorth": [
+      19,
+      8
+    ],
+    "handheldNeedle": "render a separate tiny red 1x3px north-pointing line at rotated dial center; no baked needle"
+  },
+  "lighting": {
+    "lampGlow": "draw at runtime from player position with Canvas radial gradient on low-res lighting layer",
+    "shadow": "shadow sprite transform away from sun at current local time"
+  }
+}

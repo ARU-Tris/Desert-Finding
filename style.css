@@ -1,0 +1,400 @@
+:root {
+  color-scheme: dark;
+  --ink: #213329;
+  --paper: #e7e6bf;
+  --gold: #beca94;
+  --unit: 2px;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  display: grid;
+  place-items: center;
+  background: #171c20;
+  color: var(--paper);
+  font-family: "Courier New", Courier, monospace;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+}
+button:focus-visible,
+canvas:focus-visible {
+  outline: calc(1 * var(--unit)) solid #ffebbb;
+  outline-offset: calc(2 * var(--unit));
+}
+button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+[hidden] {
+  display: none !important;
+}
+#stage {
+  position: relative;
+  width: calc(480 * var(--unit));
+  height: calc(270 * var(--unit));
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 0 70px #0005;
+  font-size: calc(5 * var(--unit));
+}
+canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+#world {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: crosshair;
+  outline-offset: calc(-2 * var(--unit));
+}
+.topline {
+  position: absolute;
+  left: calc(12 * var(--unit));
+  top: calc(10 * var(--unit));
+  display: flex;
+  gap: calc(7 * var(--unit));
+  font-size: calc(5 * var(--unit));
+  letter-spacing: calc(1 * var(--unit));
+  color: #fff0ce;
+  text-shadow: 1px 1px #302821;
+  pointer-events: none;
+}
+.edition {
+  opacity: 0.65;
+  letter-spacing: calc(0.5 * var(--unit));
+}
+#tools {
+  position: absolute;
+  right: calc(11 * var(--unit));
+  top: calc(8 * var(--unit));
+  display: flex;
+  gap: calc(4 * var(--unit));
+}
+#tools button {
+  min-height: calc(14 * var(--unit));
+  min-width: calc(16 * var(--unit));
+  padding: calc(3 * var(--unit)) calc(5 * var(--unit));
+  color: var(--paper);
+  background: #222a2ddd;
+  font-size: calc(5 * var(--unit));
+}
+#tools button:hover {
+  background: #3d4545;
+}
+#compass {
+  position: absolute;
+  right: calc(9 * var(--unit));
+  bottom: calc(9 * var(--unit));
+  width: calc(113 * var(--unit));
+  padding: calc(3 * var(--unit)) calc(4 * var(--unit)) calc(5 * var(--unit));
+  background: #252821ed;
+  border: calc(2 * var(--unit)) solid #3e3a30;
+  box-shadow: calc(2 * var(--unit)) calc(2 * var(--unit)) #191d2280;
+  text-align: center;
+  user-select: none;
+}
+#dial {
+  width: calc(101 * var(--unit));
+  height: calc(101 * var(--unit));
+  display: block;
+}
+.compass-label {
+  font-size: calc(4 * var(--unit));
+  letter-spacing: calc(1 * var(--unit));
+  color: #b99e70;
+}
+#bearing {
+  display: block;
+  white-space: nowrap;
+  font-size: calc(6 * var(--unit));
+  font-weight: bold;
+  padding-top: calc(2 * var(--unit));
+}
+#travel-state {
+  display: block;
+  padding-top: calc(3 * var(--unit));
+  color: #aaad99;
+  font-size: calc(4 * var(--unit));
+  letter-spacing: calc(1 * var(--unit));
+}
+#clock {
+  position: absolute;
+  left: calc(12 * var(--unit));
+  bottom: calc(11 * var(--unit));
+  font-size: calc(5 * var(--unit));
+  color: #f3dfb7;
+  text-shadow: 1px 1px #232831;
+  pointer-events: none;
+}
+#notes {
+  position: absolute;
+  top: calc(29 * var(--unit));
+  left: calc(12 * var(--unit));
+  width: calc(152 * var(--unit));
+  padding: calc(9 * var(--unit));
+  background: #e7cf9eef;
+  border: calc(1 * var(--unit)) solid #c19c60;
+  color: #4a3d2f;
+  box-shadow: calc(3 * var(--unit)) calc(3 * var(--unit)) #302a2350;
+  transform: rotate(-1deg);
+}
+.note-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: calc(4 * var(--unit));
+  letter-spacing: calc(0.7 * var(--unit));
+  border-bottom: calc(0.5 * var(--unit)) solid #af9063;
+  padding-bottom: calc(3 * var(--unit));
+}
+.note-heading button {
+  color: #59432d;
+  background: transparent;
+  font-size: calc(9 * var(--unit));
+  width: calc(14 * var(--unit));
+  height: calc(14 * var(--unit));
+}
+#notes p {
+  font-size: calc(7 * var(--unit));
+  line-height: 1.65;
+  margin: calc(6 * var(--unit)) 0;
+}
+#notes strong {
+  letter-spacing: calc(0.5 * var(--unit));
+}
+#notes > span {
+  font-size: calc(5 * var(--unit));
+  line-height: 1.6;
+  color: #705c43;
+}
+#overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #14202975;
+}
+.panel {
+  width: calc(252 * var(--unit));
+  padding: calc(17 * var(--unit)) calc(19 * var(--unit));
+  text-align: center;
+  background: #20292bf5;
+  border: calc(1 * var(--unit)) solid #9e8559;
+  box-shadow: 0 0 0 calc(4 * var(--unit)) #20292b88;
+}
+.eyebrow {
+  font-size: calc(5 * var(--unit));
+  letter-spacing: calc(1 * var(--unit));
+  color: var(--gold);
+}
+h1 {
+  font-size: calc(23 * var(--unit));
+  line-height: 1.08;
+  letter-spacing: calc(2 * var(--unit));
+  font-weight: bold;
+  margin: calc(9 * var(--unit)) 0;
+  color: #f6e8c5;
+}
+#panel-description {
+  font-size: calc(6 * var(--unit));
+  line-height: 1.65;
+  color: #c4bdac;
+  margin: calc(7 * var(--unit)) 0;
+}
+#panel-controls {
+  font-size: calc(5 * var(--unit));
+  line-height: 1.6;
+  color: #dac69c;
+  margin: calc(10 * var(--unit)) 0;
+}
+#panel-actions {
+  display: flex;
+  justify-content: center;
+  gap: calc(6 * var(--unit));
+}
+#panel-actions button {
+  padding: calc(7 * var(--unit)) calc(12 * var(--unit));
+  background: #dbc18b;
+  color: #262b29;
+  font-weight: bold;
+  font-size: calc(6 * var(--unit));
+  border: calc(1 * var(--unit)) solid #f1ddae;
+}
+#panel-actions button:hover {
+  background: #f2ddab;
+}
+#panel-actions #secondary {
+  color: #dbc18b;
+  background: transparent;
+  border-color: #786d55;
+}
+#panel-footnote {
+  display: block;
+  margin-top: calc(11 * var(--unit));
+  color: #a49e8e;
+  font-size: calc(4 * var(--unit));
+  letter-spacing: calc(0.3 * var(--unit));
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.no-script {
+  position: fixed;
+  top: 0;
+  padding: 1em;
+  background: #20292b;
+}
+@media (prefers-reduced-motion: reduce) {
+  #notes {
+    transform: none;
+  }
+}
+@media (max-width: 600px), (max-height: 500px) {
+  .edition {
+    display: none;
+  }
+  .topline {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+  #tools {
+    top: 6px;
+    right: 6px;
+  }
+  #tools button {
+    min-width: 32px;
+    min-height: 32px;
+    font-size: 10px;
+    padding: 6px;
+  }
+  #clock {
+    font-size: 7px;
+  }
+  .panel {
+    width: min(94%, 330px);
+    padding: 11px 15px;
+  }
+  .eyebrow {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+  h1 {
+    font-size: 24px;
+    letter-spacing: 2px;
+    margin: 6px 0;
+  }
+  #panel-description {
+    font-size: 10px;
+    line-height: 1.4;
+    margin: 5px 0;
+  }
+  #panel-controls {
+    font-size: 9px;
+    line-height: 1.4;
+    margin: 7px 0;
+  }
+  #panel-actions button {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+  #panel-footnote {
+    font-size: 7px;
+    margin-top: 7px;
+  }
+  #notes {
+    top: 43px;
+    width: 175px;
+    padding: 9px;
+  }
+  .note-heading {
+    font-size: 7px;
+    letter-spacing: 0.5px;
+  }
+  .note-heading button {
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+  }
+  #notes p {
+    font-size: 11px;
+    line-height: 1.5;
+    margin: 5px 0;
+  }
+  #notes > span {
+    font-size: 8px;
+    line-height: 1.4;
+  }
+  #bearing {
+    font-size: 8px;
+  }
+  .compass-label,
+  #travel-state {
+    font-size: 6px;
+    letter-spacing: 0.3px;
+  }
+}
+
+/* Muted field green for the interface; original sand and brass stay intact. */
+body {
+  background: #17231e;
+}
+.panel {
+  background: #1c3026f5;
+  border-color: #8b9d71;
+  box-shadow: 0 0 0 calc(4 * var(--unit)) #20342a88;
+}
+#overlay {
+  background: #12251d75;
+}
+#tools button {
+  background: #213b2ddd;
+}
+#tools button:hover {
+  background: #395442;
+}
+#compass {
+  background: #223328ed;
+  border-color: #506045;
+}
+#panel-actions button {
+  background: #becb98;
+  border-color: #dce4ba;
+  color: #203029;
+}
+#panel-actions button:hover {
+  background: #d5dfb3;
+}
+#panel-actions #secondary {
+  color: #ccd5ac;
+  border-color: #718363;
+}
+#save-notice {
+  position: absolute;
+  bottom: calc(26 * var(--unit));
+  left: calc(12 * var(--unit));
+  max-width: calc(290 * var(--unit));
+  margin: 0;
+  padding: calc(5 * var(--unit));
+  background: #213b2df0;
+  color: #f0dfbb;
+  font-size: max(9px, calc(5 * var(--unit)));
+}
